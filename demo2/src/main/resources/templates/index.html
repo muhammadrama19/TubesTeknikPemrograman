@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo</title>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.css">
+</head>
+
+<body>
+    <h1>Halo</h1>
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+            <tr th:each="expense:${Data}">
+                <td th:text="${expense.expenseName}"></td>
+                <td th:text="${expense.expenseCategory}"></td>
+                <td th:text="${expense.expenseAmount}"></td>
+                <td><a th:href="@{/api/expense/{name}(name=${expense.expenseName})}">edit</a></td>
+                <td><a th:href="@{/api/expense/{name}(name=${expense.expenseName})}">delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form action="/api/expense/add" method="POST">
+        <input type="text" name="expenseName" id="expenseName"></input>
+        <input type="text" name="expenseCategory" id="expenseCategory"></input>
+        <input type="text" name="expenseAmount" id="expenseAmount"></input>
+        <input type="submit">Add</input>
+    </form>
+    <form action="/api/expense/update" method="POST" th:if="${edit}">
+        <input type="text" name="id" id="id" th:value="${DataEdit.id}"></input>
+        <input type="text" name="expenseName" id="expenseName"></input>
+        <input type="text" name="expenseCategory" id="expenseCategory"></input>
+        <input type="text" name="expenseAmount" id="expenseAmount"></input>
+        <input type="submit">Update</input>
+    </form>
+
+</body>
+
+</html>
